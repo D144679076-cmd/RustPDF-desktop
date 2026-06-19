@@ -1,0 +1,36 @@
+[package]
+name = "pdf-desktop"
+version = "0.1.0"
+edition = "2021"
+description = "Native desktop PDF editor (macOS / Windows / Linux) built in Rust with Dioxus, powered by the pdf-core engine."
+license = "UNLICENSED"
+repository = "ssh://git@github.com/D144679076-cmd/pdf-desktop.git"
+
+[dependencies]
+# Shared app core (session, viewport, render protocol, tools, theme, components).
+pdf-app-core = { path = "../pdf-app-core" }
+# Engine, linked natively. Same features the app-core enables.
+pdf-core = { path = "../pdf-editor-rust-core", features = [
+    "render", "writer", "forms", "crypto", "signatures", "search",
+] }
+
+# UI — Dioxus desktop (wry/tao webview shell + RSX).
+dioxus = { version = "0.6", features = ["desktop", "router"] }
+
+# Desktop platform integration.
+rfd = "0.14"            # native open/save file dialogs
+arboard = "3"           # clipboard (copy extracted text)
+muda = "0.13"           # native application menu bar
+directories = "5"       # recent-files / config dir per-OS
+
+log = "0.4"
+env_logger = "0.11"
+
+[features]
+default = []
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

@@ -1,0 +1,27 @@
+[application]
+name = "pdf-desktop"
+# Output goes to ./dist; `dx bundle` produces native installers.
+default_platform = "desktop"
+
+[web.app]
+title = "PDF Editor"
+
+[bundle]
+identifier = "com.pdfengine.desktop"
+publisher = "pdf-engine"
+icon = ["assets/icons/icon.png"]
+# Per-OS installer formats produced by `dx bundle`:
+#   macOS   -> .dmg / .app
+#   Windows -> .msi / .exe (nsis)
+#   Linux   -> .AppImage / .deb
+copyright = "© 2026 pdf-engine. All rights reserved."
+category = "Productivity"
+short_description = "Native PDF editor powered by Rust."
+
+[bundle.macos]
+minimum_system_version = "11.0"
+
+[bundle.windows]
+# webview2 is bootstrapped on first run if absent.
+
+[bundle.linux]

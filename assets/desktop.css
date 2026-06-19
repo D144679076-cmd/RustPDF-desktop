@@ -1,0 +1,59 @@
+/* ===========================================================================
+   pdf-desktop — desktop-specific styles (welcome screen, window chrome).
+   Loaded after the shared theme.css + components.css.
+   =========================================================================== */
+
+/* ---- Welcome / empty state ---------------------------------------------- */
+.welcome {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+}
+.welcome-card {
+  width: min(560px, 90vw);
+  text-align: center;
+}
+.welcome-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--sp-sm);
+}
+.welcome-sub {
+  color: var(--ink-muted);
+  margin: 0 0 var(--sp-xl);
+}
+.dropzone {
+  border: 2px dashed var(--line-strong);
+  border-radius: var(--r-lg);
+  padding: var(--sp-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-lg);
+  color: var(--ink-faint);
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+.dropzone.drag-over {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ---- Recent files (cards) ----------------------------------------------- */
+.recent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--sp-md);
+  margin-top: var(--sp-xl);
+}
+.recent-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--sp-md);
+  cursor: pointer;
+  transition: box-shadow var(--t-fast), transform var(--t-fast);
+}
+.recent-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }

@@ -1,0 +1,8 @@
+/target
+/dist
+**/*.rs.bk
+Cargo.lock
+.DS_Store
+# Stylesheets synced from pdf-app-core by build.rs:
+/assets/theme.css
+/assets/components.css

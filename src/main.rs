@@ -13,7 +13,9 @@ mod views;
 
 use dioxus::prelude::*;
 
+use pdf_app_core::session::Session;
 use pdf_app_core::theme::Mode;
+use pdf_app_core::viewport::Viewport;
 
 /// Global app state shared via Dioxus context.
 #[derive(Clone, Copy)]
@@ -22,6 +24,15 @@ pub struct AppState {
     pub mode: Signal<Mode>,
     /// Whether a document is currently open (drives welcome vs editor route).
     pub has_document: Signal<bool>,
+    /// The open PDF session; `None` on the welcome screen.
+    pub session: Signal<Option<Session>>,
+    /// Zoom / fit-mode state for the page canvas.
+    pub viewport: Signal<Viewport>,
+    /// Page sizes in PDF points `(width, height)`, indexed by page number.
+    /// Set when a session opens; empty when no document is open.
+    pub page_sizes: Signal<Vec<(f64, f64)>>,
+    /// Zero-based index of the page currently scrolled into view.
+    pub current_page: Signal<usize>,
 }
 
 fn main() {
@@ -46,6 +57,15 @@ fn App() -> Element {
     use_context_provider(|| AppState {
         mode: Signal::new(Mode::Light),
         has_document: Signal::new(false),
+        session: Signal::new(None),
+        // Default dpr=2 for crisp HiDPI rendering; 1x screens show slight
+        // over-sampling which is visually acceptable for D0.
+        viewport: Signal::new(Viewport {
+            dpr: 2.0,
+            ..Default::default()
+        }),
+        page_sizes: Signal::new(Vec::new()),
+        current_page: Signal::new(0),
     });
 
     rsx! {
